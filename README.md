@@ -32,6 +32,23 @@ The following topics are covered:
   * [Building](https://github.com/pusher/pusher-js#building)
   * [Testing](https://github.com/pusher/pusher-js#testing)
 
+## Supported platforms
+
+* Web
+
+  * We test against Chrome, Firefox and Safari.
+  * Works [in web pages](https://github.com/pusher/pusher-js#web), [web
+    workers and service
+    workers](https://github.com/pusher/pusher-js#web-workers)
+  * Works with all major web frameworks, including
+
+    * Angular ([See Angular tutorial](https://pusher.com/tutorials/angular-realtime))
+    * React ([See React tutorial](https://pusher.com/tutorials/react-websockets))
+    * Vue.js ([see Vue.js tutorial](https://pusher.com/tutorials/realtime-app-vuejs))
+
+* [React Native](https://github.com/pusher/pusher-js#react-native)
+* [Node.js](https://github.com/pusher/pusher-js#nodejs)
+
 ## Installation
 
 ### Web
@@ -117,7 +134,7 @@ importScripts('https://js.pusher.com/5.0/pusher.worker.min.js');
 
 ### Node.js
 
-Having installed `pusher-js` via an NPM-compatible package manager, simply:
+Having installed `pusher-js` via an NPM-compatible package manager, run:
 
 ```javascript
 import Pusher from 'pusher-js';
@@ -242,6 +259,17 @@ Specifies which transports should be used by pusher-js to establish a connection
 const socket = new Pusher(APP_KEY, {
   cluster: APP_CLUSTER,
   enabledTransports: ['ws']
+});
+```
+
+Note: if you intend to use secure websockets, or `wss`, you can not simply specify `wss` in `enabledTransports`, you must specify `ws` in `enabledTransports` as well as set the `encrypted` option to `true`.
+
+```js
+// Only use secure WebSockets
+const socket = new Pusher(APP_KEY, {
+  cluster: APP_CLUSTER,
+  enabledTransports: ['ws'],
+  encrypted: true
 });
 ```
 
@@ -509,17 +537,17 @@ First, clone this repository and run `npm install && git submodule init && git s
 
 In the `dist/web` folder, you should see the files you need: `pusher.js`, `pusher.min.js`, `json2.js`, `json.min.js`, `sockjs.js` and `sockjs.min.js`. `pusher.js` should be built referencing your URLs as the dependency hosts.
 
-First, make sure you expose all files from the `dist` directory. They need to be in a directory with named after the version number. For example, if you're hosting version 5.0.0 under `http://example.com/pusher-js` (and https for SSL), files should be accessible under following URL's:
+First, make sure you expose all files from the `dist` directory. They need to be in a directory with named after the version number. For example, if you're hosting version 5.0.2 under `http://example.com/pusher-js` (and https for SSL), files should be accessible under following URL's:
 
-    http://example.com/pusher-js/5.0.0/pusher.js
-    http://example.com/pusher-js/5.0.0/json2.js
-    http://example.com/pusher-js/5.0.0/sockjs.js
+    http://example.com/pusher-js/5.0.2/pusher.js
+    http://example.com/pusher-js/5.0.2/json2.js
+    http://example.com/pusher-js/5.0.2/sockjs.js
 
 Minified files should have `.min` in their names, as in the `dist/web` directory:
 
-    http://example.com/pusher-js/5.0.0/pusher.min.js
-    http://example.com/pusher-js/5.0.0/json2.min.js
-    http://example.com/pusher-js/5.0.0/sockjs.min.js
+    http://example.com/pusher-js/5.0.2/pusher.min.js
+    http://example.com/pusher-js/5.0.2/json2.min.js
+    http://example.com/pusher-js/5.0.2/sockjs.min.js
 
 ## SockJS compatibility
 
@@ -573,7 +601,7 @@ git submodule init
 git submodule update
 ```
 
-Then simply run:
+Then run:
 
 ```bash
 make web
